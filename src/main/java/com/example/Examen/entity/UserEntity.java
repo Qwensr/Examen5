@@ -6,16 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ParkingPlace {
+public class UserEntity {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String place;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String surname;
+    @OneToMany
+    private List<ParkingPlaceEntity> parkingPlaces;
 }
