@@ -3,6 +3,8 @@ package com.example.Examen.controller;
 import com.example.Examen.dto.UserDto;
 import com.example.Examen.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +17,9 @@ public class UserController {
     private final UserServiceImpl service;
 
     @PostMapping("create")
-    public UserDto create(UserDto userToCreate){
-        return service.create(userToCreate);
+    public ResponseEntity<UserDto> create(@RequestBody UserDto userToCreate){
+        UserDto createdUser = service.create(userToCreate);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping("findAll")

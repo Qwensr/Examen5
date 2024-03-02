@@ -4,6 +4,8 @@ import com.example.Examen.dto.ParkingPlaceDto;
 import com.example.Examen.enums.ParkingType;
 import com.example.Examen.service.impl.ParkingPlacesServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,9 @@ public class ParkingPlaceController {
     private final ParkingPlacesServiceImpl service;
 
     @PostMapping("create")
-    public ParkingPlaceDto createParkingPlace(ParkingPlaceDto parkingPlaceDto){
-        return service.create(parkingPlaceDto);
+    public ResponseEntity<ParkingPlaceDto> createParkingPlace(@RequestBody ParkingPlaceDto parkingPlaceDto){
+        ParkingPlaceDto createdParkingPlace = service.create(parkingPlaceDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdParkingPlace);
     }
 
     @GetMapping("findAll")
